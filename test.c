@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/07/15 00:33:13 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/07/15 22:47:27 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 1024
 #endif
-
 
 size_t ft_strlen(const char *str)
 {
@@ -98,16 +97,20 @@ int main(void)
 	printf("fd is: %d, Buffer size is %d\n", fd, BUFFER_SIZE);
 	char *text;
 	char *buf = malloc(BUFFER_SIZE);
-	char *previous;
+	static char *previous;
+	if (!previous)
+	{
+		previous = malloc(1);
+		previous[0] = 0;
+	}
 	int res = BUFFER_SIZE;
 	int count = 0;
 	int size = 0;
 	text = 0;
-	previous = malloc(1);
-	previous[0] = 0;
 	while (res == BUFFER_SIZE)
 	{
 		res = test_read(fd, buf);
+		printf("this is buf: %s\n", buf);
 		size += res;
 		text = malloc(size + 1);
 		ft_strlcpy(text, previous, ft_strlen(previous) + 1);	// text = previous + buf;
@@ -131,4 +134,4 @@ problems to solve:
 	+how to store the remaining string that has already been read?
 	+What should be the loop order?
 	-> define the interfaces: what functions do we need and how do they interact?
-
+*/
