@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/07/16 22:26:45 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/07/17 10:43:41 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,14 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			res;
 
+	if (!fd)
+		return (0);
 	res = BUFFER_SIZE;
 	while (res == BUFFER_SIZE)
 	{
 		if (get_idx(previous))
 			break ;
 		previous = get_buf(previous, &res, fd);
-		count++;
 	}
 	line = get_line(previous);
 	previous = shift_previous(previous);
@@ -64,7 +65,7 @@ char	*get_next_line(int fd)
 /*
 int main(void)
 {
-	int fd = open("test.txt", O_RDONLY);
+	int fd = open(".test/lorem.txt", O_RDONLY);
 	char *text;
 	int count = 0;
 	printf("fd is: %d, Buffer size is %d\n", fd, BUFFER_SIZE);
@@ -82,5 +83,4 @@ int main(void)
 	close(fd);
 	return (0);
 }
-
 */

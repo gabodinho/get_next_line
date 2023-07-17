@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/07/16 22:27:37 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/07/17 10:42:45 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ char	*shift_previous(char *previous)
 		free(previous);
 	}
 	else if (previous)
+	{	
 		free(previous);
+		res = 0;
+	}
 	return (res);
 }
 
