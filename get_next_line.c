@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/07/17 10:43:41 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:15:15 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			res;
 
-	if (!fd)
+	if (!fd || !BUFFER_SIZE)
 		return (0);
 	res = BUFFER_SIZE;
 	while (res == BUFFER_SIZE)
