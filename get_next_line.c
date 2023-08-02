@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/07/17 10:43:41 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/08/02 21:15:40 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ char	*get_buf(char *previous, int *bytswrtn, int fd)
 	if (!buf)
 		return (0);
 	*bytswrtn = read(fd, buf, BUFFER_SIZE);
+	if (*bytswrtn < 0)
+	{
+		free(buf);
+		return (previous);
+	}
 	buf[*bytswrtn] = 0;
 	res = malloc(sizeof(char) * (ft_strlen(previous) + *bytswrtn + 1));
 	ft_concat(res, previous, buf);
@@ -49,8 +54,6 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			res;
 
-	if (!fd)
-		return (0);
 	res = BUFFER_SIZE;
 	while (res == BUFFER_SIZE)
 	{
@@ -58,7 +61,7 @@ char	*get_next_line(int fd)
 			break ;
 		previous = get_buf(previous, &res, fd);
 	}
-	line = get_line(previous);
+	line = get_linee(previous);
 	previous = shift_previous(previous);
 	return (line);
 }
@@ -71,7 +74,7 @@ int main(void)
 	printf("fd is: %d, Buffer size is %d\n", fd, BUFFER_SIZE);
 //	text = get_next_line(fd);
 //	text = get_next_line(fd);
-//	printf("line is: %s\n", text);	
+//	prinif (*bytswrtn)tf("line is: %s\n", text);	
 	while (text || count == 0)
 	{
 	        text = get_next_line(fd);

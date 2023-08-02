@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/07/16 22:30:24 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/08/02 21:01:53 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int		get_idx(char *str);
 char	*shift_previous(char *previous);
-char	*get_line(char *previous);
+char	*get_linee(char *previous);
 void	ft_concat(char *dst, char *prefix, char *sufix);
 char	*get_buf(char *previous, int *bytswrtn, int fd);
 char	*get_next_line(int fd);
