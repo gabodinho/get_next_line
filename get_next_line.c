@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/08/02 21:15:40 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:07:54 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,18 @@ char	*get_buf(char *previous, int *bytswrtn, int fd)
 		previous[0] = 0;
 	}
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf)
-		return (0);
 	*bytswrtn = read(fd, buf, BUFFER_SIZE);
 	if (*bytswrtn < 0)
 	{
-		free(buf);
-		return (previous);
+		res = malloc(1);
+		*res = 0;
 	}
-	buf[*bytswrtn] = 0;
-	res = malloc(sizeof(char) * (ft_strlen(previous) + *bytswrtn + 1));
-	ft_concat(res, previous, buf);
+	else
+	{
+		buf[*bytswrtn] = 0;
+		res = malloc(sizeof(char) * (ft_strlen(previous) + *bytswrtn + 1));
+		ft_concat(res, previous, buf);
+	}
 	free(buf);
 	free(previous);
 	return (res);
