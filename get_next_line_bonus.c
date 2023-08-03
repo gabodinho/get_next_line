@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/08/03 17:28:42 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:12:46 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,28 @@ t_fd	init_storage(int fd)
 	return (new);
 }
 
-char	*get_previous(int fd, t_fd *storage)
+//char	*set_previous(int fd, char *previous)
+
+t_fd	*get_storage(int fd, t_fd *storage)
 {
 	t_fd	new;
+	t_fd	*previous;
+//	t_fd	*ptr;
 
+//	ptr = storage;
 	while (storage)
 	{
 		if (storage -> fdm == fd)
-			return(storage -> data);
+			return(storage);
 		else
+		{
+			previous = storage;
 			storage = storage -> next;
+		}
 	}
-	new = init_storage(fd);
-	storage = &new;
-	return (storage -> data);
+	new = init_storage(fd); 
+	previous -> next = &new;
+	return (storage);
 }
 
 void	ft_concat(char *dst, char *prefix, char *sufix)
@@ -80,11 +88,13 @@ char	*get_buf(char *previous, int *bytswrtn, int fd)
 char	*get_next_line(int fd)
 {
 	static t_fd	*storage;
+	t_fd		*current;
 	char		*previous;
 	char		*line;
 	int			res;
 
-	previous = get_previous(fd, storage);
+	current = get_storage(fd, storage);
+	previous = current -> data;
 	res = BUFFER_SIZE;
 	while (res == BUFFER_SIZE)
 	{
@@ -93,7 +103,7 @@ char	*get_next_line(int fd)
 		previous = get_buf(previous, &res, fd);
 	}
 	line = get_linee(previous);
-	previous = shift_previous(previous);
+	current -> data = shift_previous(previous);
 	return (line);
 }
 /*

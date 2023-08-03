@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:08:13 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/08/03 17:46:24 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:12:53 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,24 @@ int main(void)
 	int fd;
 
 	text = "test";
-	fd = open("files/alternate_line_nl_no_nl", O_RDONLY);
+	fd = open("files/41_with_nl", O_RDONLY);
+//	int fd2 = open("files/big_line_no_nl", O_RDONLY);
+//	int fd3 = open("files/multiple_line_with_nl", O_RDONLY);
 	while (text)
 	{
 		text = get_next_line(fd);
 		printf("%s", text);
 		free(text);
+/*		text = get_next_line(fd2);
+		printf("%s", text);
+ 		free(text);
+		text = get_next_line(fd3);
+		printf("%s", text);
+ 		free(text);*/
 	}
 	close(fd);
+//	close(fd2);
+//	close(fd3);
 	return (0);
 }
 
