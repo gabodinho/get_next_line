@@ -6,12 +6,30 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/08/04 00:12:46 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/08/04 12:37:00 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
+
+// diese funktion in den clean up prozess integrieren
+void	clean_storage(t_fd *storage)
+{
+	t_fd	*current;
+
+	while (storage)
+	{
+		if (!storage -> data)
+		{
+			current = storage -> next;
+			free(storage);
+			storage = current;
+		}
+	}
+}
+
+//dies funktion umschreiben, sodass sie einen pointer returned
 t_fd	init_storage(int fd)
 {
 	t_fd	new;
@@ -24,15 +42,14 @@ t_fd	init_storage(int fd)
 	return (new);
 }
 
-//char	*set_previous(int fd, char *previous)
-
+// umschreiben auf neuen return value von init_storage
 t_fd	*get_storage(int fd, t_fd *storage)
 {
 	t_fd	new;
 	t_fd	*previous;
-//	t_fd	*ptr;
+	t_fd	*original;
 
-//	ptr = storage;
+	original = storage;
 	while (storage)
 	{
 		if (storage -> fdm == fd)
@@ -43,7 +60,9 @@ t_fd	*get_storage(int fd, t_fd *storage)
 			storage = storage -> next;
 		}
 	}
-	new = init_storage(fd); 
+	new = init_storage(fd);
+	if (!original)
+		return (&new);
 	previous -> next = &new;
 	return (storage);
 }
