@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/08/04 00:12:58 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/08/05 11:43:24 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,13 @@ char	*shift_previous(char *previous)
 		}
 		res[i] = 0;
 		free(previous);
-		previous = res;
-		free(res);
 	}
 	else
 	{
 		free(previous);
-//		res = 0;
-		previous = 0;
+		res = 0;
 	}
-	return (previous);
+	return (res);
 }
 
 char	*get_linee(char *previous)

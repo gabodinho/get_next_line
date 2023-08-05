@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/08/04 00:13:01 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/08/05 11:09:50 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ typedef struct s_fd
 	struct s_fd	*next;
 }	t_fd;
 
-t_fd    init_storage(int fd);
+t_fd    *init_storage(int fd);
 t_fd    *get_storage(int fd, t_fd *storage);
+void	clean_storage(t_fd **head);
 size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int		get_idx(char *str);
