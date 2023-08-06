@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/08/05 11:49:57 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/08/06 17:22:55 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,30 @@
 
 void	clean_storage(t_fd **head)
 {
-	t_fd	*temp;
-	t_fd	*prev;
+	t_fd	*tmp[2];
 
-	if (!(*head) -> data)
+	if (!(*head)-> data)
 	{
-		temp = *head;
-		*head = (*head) -> next;
-		free(temp);
+		tmp[1] = *head;
+		*head = (*head)-> next;
+		free(tmp[1]);
 		return ;
 	}
-	prev = *head;
-	temp = (*head) -> next;
-	while (temp)
+	tmp[0] = *head;
+	tmp[1] = (*head)-> next;
+	while (tmp[1])
 	{
-	        if (!temp -> data)
-	        {
-		                prev -> next = temp -> next;
-		                free(temp);
-		                temp = prev -> next;
-	        }
-	        else
-			{
-				prev = temp;
-				temp = temp -> next;
-			}
+		if (!tmp[1]-> data)
+		{
+			tmp[0]-> next = tmp[1]-> next;
+			free(tmp[1]);
+			tmp[1] = tmp[0]-> next;
+		}
+		else
+		{
+			tmp[0] = tmp[1];
+			tmp[1] = tmp[1]-> next;
+		}
 	}
 }
 
@@ -60,7 +59,7 @@ t_fd	*get_storage(int fd, t_fd *storage)
 	while (storage)
 	{
 		if (storage -> fdm == fd)
-			return(storage);
+			return (storage);
 		else
 		{
 			previous = storage;
@@ -71,16 +70,7 @@ t_fd	*get_storage(int fd, t_fd *storage)
 	return (previous -> next);
 }
 
-void	ft_concat(char *dst, char *prefix, char *sufix)
-{
-	while (*prefix)
-		*dst++ = *prefix++;
-	while (*sufix)
-		*dst++ = *sufix++;
-	*dst = 0;
-}
-
-char	*get_buf(char *previous, int *bytswrtn, int fd)
+char	*get_buf(char *previous, int *wrtn, int fd)
 {
 	char	*buf;
 	char	*res;
@@ -91,16 +81,16 @@ char	*get_buf(char *previous, int *bytswrtn, int fd)
 		previous[0] = 0;
 	}
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	*bytswrtn = read(fd, buf, BUFFER_SIZE);
-	if (*bytswrtn < 0)
+	*wrtn = read(fd, buf, BUFFER_SIZE);
+	if (*wrtn < 0)
 	{
 		res = malloc(1);
 		*res = 0;
 	}
 	else
 	{
-		buf[*bytswrtn] = 0;
-		res = malloc(sizeof(char) * (ft_strlen(previous) + *bytswrtn + 1));
+		buf[*wrtn] = 0;
+		res = malloc(sizeof(char) * (ft_strlcpy(previous, "", 0) + *wrtn + 1));
 		ft_concat(res, previous, buf);
 	}
 	free(buf);

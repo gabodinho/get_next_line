@@ -6,20 +6,19 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/08/05 11:43:24 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/08/06 17:19:41 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-size_t	ft_strlen(const char *str)
+void	ft_concat(char *dst, char *prefix, char *sufix)
 {
-	size_t	len;
-
-	len = 0;
-	while (*str++)
-		len++;
-	return (len);
+	while (*prefix)
+		*dst++ = *prefix++;
+	while (*sufix)
+		*dst++ = *sufix++;
+	*dst = 0;
 }
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
@@ -36,7 +35,12 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 		}
 		dst[i] = 0;
 	}
-	return (ft_strlen((char *) src));
+	else
+	{
+		while (*dst++)
+			i++;
+	}
+	return (i);
 }
 
 int	get_idx(char *str)
@@ -47,7 +51,7 @@ int	get_idx(char *str)
 	if (!str)
 		return (0);
 	i = 0;
-	len = ft_strlen(str);
+	len = ft_strlcpy(str, "", 0);
 	while (str[i] != '\n' && i < len)
 		i++;
 	if (str[i])
@@ -65,7 +69,7 @@ char	*shift_previous(char *previous)
 	idx = get_idx(previous);
 	if (idx)
 	{
-		res = malloc(sizeof(char) * (ft_strlen(previous + idx) + 1));
+		res = malloc(sizeof(char) * (ft_strlcpy(previous + idx, "", 0) + 1));
 		if (!res)
 			return (0);
 		i = 0;
@@ -94,7 +98,7 @@ char	*get_linee(char *previous)
 		return (0);
 	idx = get_idx(previous);
 	if (!idx)
-		idx = ft_strlen(previous);
+		idx = ft_strlcpy(previous, "", 0);
 	res = malloc(sizeof(char) * (idx + 1));
 	if (!res)
 		return (0);

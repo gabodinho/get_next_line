@@ -6,12 +6,12 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 16:42:14 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/08/05 11:09:50 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2023/08/06 17:24:13 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdio.h>
 # include <unistd.h>
@@ -30,10 +30,9 @@ typedef struct s_fd
 	struct s_fd	*next;
 }	t_fd;
 
-t_fd    *init_storage(int fd);
-t_fd    *get_storage(int fd, t_fd *storage);
+t_fd	*init_storage(int fd);
+t_fd	*get_storage(int fd, t_fd *storage);
 void	clean_storage(t_fd **head);
-size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int		get_idx(char *str);
 char	*shift_previous(char *previous);
